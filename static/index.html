@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeaconSMS | Frontier AI Over 2G SMS for Africa</title>
-    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
-    <link rel="alternate icon" type="image/png" href="./assets/favicon.png">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Using Outfit for clean, modern geometric typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css?v=35">
+    <!-- Using Outfit for a clean, modern geometric look -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css?v=31">
 </head>
 <body>
     <!-- Custom Cursor -->
@@ -24,28 +23,22 @@
     <!-- Controls Container (Side) -->
     <div class="side-controls">
         <!-- Theme Toggle -->
-        <button class="theme-toggle" id="theme-toggle" title="Toggle Theme (Dark / Light)" aria-label="Toggle Theme">
-            <span class="toggle-icon sun-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-            </span>
-            <span class="toggle-icon moon-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </span>
+        <div class="theme-toggle" id="theme-toggle" title="Toggle Theme">
             <div class="dot"></div>
-        </button>
+        </div>
         
         <!-- Audio Toggle -->
-        <button class="audio-toggle" id="audio-toggle" title="Toggle Ambient Audio" aria-label="Toggle Background Music">
+        <div class="audio-toggle" id="audio-toggle" title="Toggle Audio">
             <svg id="audio-icon-play" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             <svg id="audio-icon-pause" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-        </button>
+        </div>
     </div>
 
-    <!-- Background Image & Atmospheric Overlay -->
+    <!-- Background Image Fallback & Overlay -->
     <div class="bg-image"></div>
     <div class="overlay"></div>
 
-    <!-- Ecosystem Icons Marquee -->
+    <!-- Agent Icons Marquee -->
     <div class="marquee-container">
         <div class="marquee-track">
             <!-- Set 1 -->
@@ -68,44 +61,52 @@
     <!-- Center Stack Content -->
     <main class="content-wrapper">
         <div class="center-stack">
+            <!-- Logo Icon Container -->
+            <div class="logo-container">
+                <img src="./assets/logo.png" alt="BeaconSMS Logo" class="logo-icon" />
+            </div>
+
             <h1 class="hero-text">BeaconSMS</h1>
-            <p class="subtext">Bringing every African into the future with frontier intelligence — available on any network condition, on any device.</p>
+            <p class="subtext">Democratizing Frontier AI for the Next Billion. Access the world's intelligence, learning, commerce, and life-saving guidance directly over standard 2G SMS on any phone.</p>
 
-            <!-- Clean Pill Shaped Gateway Buttons (No text wrapping) -->
             <div class="sms-numbers-wrapper">
-                <a href="sms:+2349132628938" class="sms-pill-btn primary" id="btn-primary" data-phone="+2349132628938" title="Click to text or copy Primary Gateway number">
-                    <span class="live-dot pulse-green"></span>
-                    <span class="pill-label">PRIMARY</span>
-                    <span class="pill-divider">•</span>
-                    <span class="pill-number">+234 913 262 8938</span>
-                    <span class="pill-action">
+                <a href="sms:+2349132628938" class="sms-card-btn primary" id="btn-primary" data-phone="+2349132628938" title="Click to text or copy number">
+                    <div class="sms-card-left">
+                        <span class="live-dot pulse-green"></span>
+                        <div class="sms-card-info">
+                            <span class="sms-card-badge">PRIMARY GATEWAY</span>
+                            <span class="sms-card-number">+234 913 262 8938</span>
+                        </div>
+                    </div>
+                    <div class="sms-card-action">
                         <span class="action-label">Text / Copy</span>
-                        <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                    </span>
+                        <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </div>
                 </a>
 
-                <a href="sms:+2348146882274" class="sms-pill-btn secondary" id="btn-secondary" data-phone="+2348146882274" title="Click to text or copy Backup Gateway number">
-                    <span class="live-dot pulse-blue"></span>
-                    <span class="pill-label">BACKUP</span>
-                    <span class="pill-divider">•</span>
-                    <span class="pill-number">+234 814 688 2274</span>
-                    <span class="pill-action">
+                <a href="sms:+2348146882274" class="sms-card-btn secondary" id="btn-secondary" data-phone="+2348146882274" title="Click to text or copy number">
+                    <div class="sms-card-left">
+                        <span class="live-dot pulse-blue"></span>
+                        <div class="sms-card-info">
+                            <span class="sms-card-badge">BACKUP GATEWAY</span>
+                            <span class="sms-card-number">+234 814 688 2274</span>
+                        </div>
+                    </div>
+                    <div class="sms-card-action">
                         <span class="action-label">Text / Copy</span>
-                        <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                    </span>
+                        <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </div>
                 </a>
             </div>
 
-            <!-- Copy Feedback Toast Notification -->
-            <div class="copy-feedback" id="copy-feedback">Number copied! Send any SMS from your phone with zero internet required.</div>
+            <div class="copy-feedback" id="copy-feedback">Number copied! Text from any phone with zero internet required.</div>
 
-            <!-- Broad Multi-Dialect Status Badge -->
-            <div class="live-status-pill">
-                Live Cellular SMS • Multi-Dialect (English, Swahili, Pidgin, Yoruba, Hausa, Amharic, etc.)
-            </div>
+            <p class="live-status-pill">
+                <span class="network-icon">📶</span> Live 2G/3G Cellular SMS • Multi-Dialect (English, Pidgin, Swahili, Yoruba, Hausa)
+            </p>
         </div>
     </main>
 
-    <script src="./script.js?v=35"></script>
+    <script src="./script.js?v=30"></script>
 </body>
 </html>
