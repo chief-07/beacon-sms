@@ -82,6 +82,7 @@ async def health_check():
         "max_sms_chars": settings.max_sms_characters,
         "active_sessions": len(memory_service.sessions),
         "gateway_phone": settings.gateway_phone_number or "not-configured",
+        "secondary_phone": settings.secondary_phone_number or "not-configured",
         "simulation_mode": not bool(settings.httpsms_api_key)
     }
 
@@ -158,9 +159,13 @@ async def incoming_sms_webhook(
         logger.warning(f"BLOCKED carrier shortcode message from '{sender}'. No reply will be sent.")
         return {"status": "ignored", "reason": "Carrier shortcode blocked"}
 
-    # 3. Block self-loop (if Android gateway phone texts itself)
-    gateway_digits = re.sub(r'\D', '', str(settings.gateway_phone_number or owner or ""))
-    if gateway_digits and sender_digits == gateway_digits:
+    # 3. Block self-loop (if any Android gateway phone texts itself)
+    known_gateways = {
+        re.sub(r'\D', '', str(num))
+        for num in [settings.gateway_phone_number, settings.secondary_phone_number, owner]
+        if num
+    }
+    if sender_digits in known_gateways:
         logger.warning(f"BLOCKED self-loop message from gateway number '{sender}'.")
         return {"status": "ignored", "reason": "Self-loop blocked"}
 

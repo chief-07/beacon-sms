@@ -1,77 +1,85 @@
 <div align="center">
 
 # 📡 BeaconSMS (Message Intelligence)
-### Bringing Life-Saving AI to the 700+ Million Offline Citizens Across Africa via SMS
+### Bringing the Multiplicative Power of the Global AI Revolution to Every Hand Across Africa via SMS
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-1.5%20Flash-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
-[![Groq](https://img.shields.io/badge/Groq-Llama%203.1-F55036?style=for-the-badge)](https://groq.com)
+[![Frontier AI](https://img.shields.io/badge/Frontier%20AI-Google%20%7C%20OpenAI%20%7C%20Groq-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![AI Equity](https://img.shields.io/badge/AI%20Inclusion-Africa%20First-success?style=for-the-badge)](docs/RESEARCH_AND_IMPACT.md)
 [![httpSMS](https://img.shields.io/badge/Gateway-httpSMS-blue?style=for-the-badge)](https://httpsms.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 <p align="center">
   <b>No Internet. No Smartphone. No Mobile Data.</b><br>
-  Instant, life-saving intelligence on any $15 basic feature phone (itel, Tecno, Nokia) over standard 2G cellular SMS.
+  Plugging the world's most capable frontier AI models directly into standard 2G cellular SMS on any $15 basic feature phone (itel, Tecno, Nokia).
 </p>
 
-[Mission & Research](docs/RESEARCH_AND_IMPACT.md) • [System Architecture](docs/ARCHITECTURE.md) • [Pitch Deck & Demo Guide](docs/PITCH_DECK_GUIDE.md) • [Quickstart](#-quickstart-guide)
+[The Multiplicative AI Vision](docs/RESEARCH_AND_IMPACT.md) • [System Architecture](docs/ARCHITECTURE.md) • [Pitch Deck & Demo Guide](docs/PITCH_DECK_GUIDE.md) • [Quickstart Guide](#-quickstart-guide)
 
 </div>
 
 ---
 
-## 🌍 The Harsh Reality: Africa's "Usage Gap"
+## 🌟 The Vision: Why Africa Cannot Be Left Behind
 
-While the developed world accelerates through the Generative AI revolution, **over 60% of Sub-Saharan Africa remains locked out**.
+Artificial Intelligence is the most potent **multiplicative technology** in human history. It multiplies productivity, democratizes world-class education, solves life-threatening medical triage in rural outposts, and provides enterprise-grade business strategy to village traders.
 
+Yet today, the AI revolution is almost exclusively built for high-speed fiber, 5G networks, and $800 smartphones. 
+
+### The Threat of Exponential Divergence
 According to the **GSMA Mobile Economy Sub-Saharan Africa 2024 Report** and **ITU Data**:
-* **Only 27%** of the population uses mobile internet.
-* **The >60% "Usage Gap":** Over **600 million people** live directly under cellular network towers (2G/3G/4G), but **cannot access the internet**.
-* **Device Affordability Barrier:** An entry-level smartphone ($50–$90) represents up to 70% of monthly household income. Over **500 million people** rely on $15 basic feature phones for their daily communication.
+* **Only 27%** of Sub-Saharan Africa actively uses mobile internet.
+* **The >60% "Usage Gap":** Over **600 million people** live directly under mobile cellular towers, but **cannot afford smartphones or mobile data tariffs**.
+* **The Device Reality:** Over **500 million citizens** rely on $15 basic feature phones for their daily communication.
 
-> Modern AI models live behind data-heavy mobile apps, browser web interfaces, and expensive data subscriptions. **BeaconSMS breaks this digital divide by delivering AI intelligence directly over 2G SMS.**
+> [!WARNING]
+> If modern AI remains locked behind high-bandwidth apps and mobile subscriptions, the historical economic and cognitive gap between Africa and the developed world will not just persist—**it will compound exponentially**.
 
----
-
-## 💡 Not "Google in Messages" — A Life-Saving Lifeline
-
-BeaconSMS was not built to answer trivia or write essays. It is designed as an **immediate, life-saving, on-time intelligence lifeline**:
-
-```
-+---------------------------------------------------------------------------------+
-|                                BEACONSMS VERTICALS                              |
-+-------------------+--------------------+-------------------+--------------------+
-| 🏥 Emergency &    | 🌾 Agriculture &   | 📚 Educational    | 🚨 Disaster &      |
-| Healthcare Triage | Food Security      | Equity            | Civic Resilience   |
-+-------------------+--------------------+-------------------+--------------------+
-| • Infant ORS      | • Fall Armyworm    | • Math & physics  | • Emergency flood  |
-|   rehydration     |   pest diagnosis   |   tutoring        |   precautions      |
-| • Snakebite first | • Organic neem     | • Mother-tongue   | • Solar & bleach   |
-|   aid & burn care |   leaf sprays      |   science lessons |   water purifying  |
-| • Maternal labor  | • Drought-tolerant | • Homework help   | • Local epidemic   |
-|   warning signs   |   planting cycles  |   without books   |   advisories       |
-+-------------------+--------------------+-------------------+--------------------+
-```
+**BeaconSMS changes the narrative.** We believe access to frontier intelligence is a fundamental human right. By bridging state-of-the-art LLMs with ubiquitous 2G SMS, BeaconSMS ensures that **every African participates in the AI revolution today**, on the devices they already hold in their hands.
 
 ---
 
-## ⚡ Key Features & Engineering Highlights
+## 🚀 Access to the Future: The Universal Intelligence Lifeline
 
-* 🧠 **Multi-LLM Engine:** Powered primarily by **Google Gemini 1.5 Flash** for deep multilingual and dialect comprehension. Supports 1-switch fallback to **Groq** (`llama-3.1-8b`, ~280ms latency) and **OpenAI** (`gpt-4o-mini`).
-* 🗣️ **Mother-Tongue & Dialect Matching:** Automatically detects and replies in the user's dialect: **Nigerian Pidgin**, **Swahili**, **Yoruba**, **Hausa**, **Igbo**, **French**, or **English**.
-* 💬 **Multi-Turn Conversational Memory:** Maintains an in-memory session cache (last 3 conversation turns, 20-minute TTL) keyed by sender phone number. Users can ask natural follow-up questions from a dumb phone!
-* 📉 **GSM-7 Character Optimizer:** Automatically strips markdown symbols and normalizes accented Unicode diacritics into plain ASCII. This prevents telecom carriers from dropping into UCS-2 encoding (which shrinks SMS length from 160 chars down to 70 chars).
-* ⚡ **Fire-and-Forget Asynchronous Webhooks:** Webhooks return `HTTP 200 OK` in `< 10ms` and process AI generation in an asynchronous background worker, eliminating gateway timeouts and duplicate messages.
-* 📱 **Low-Cost Local Gateway:** Runs on an inexpensive spare Android phone with a local SIM card via **httpSMS**, bypassing expensive international SMS aggregators like Twilio.
+BeaconSMS transforms any basic dumb phone into an interactive pocket polymath, opening up the world's knowledge to anyone, anywhere:
+
+```
++---------------------------------------------------------------------------------------------------------+
+|                                        BEACONSMS CAPABILITY MATRIX                                      |
++-------------------+--------------------+--------------------+--------------------+----------------------+
+| 📚 Education &    | 💼 Commerce &      | 🌾 Agriculture &   | 🏥 Health & Life-  | 🌍 Open Knowledge &  |
+| Learning Equity   | Livelihoods        | Food Security      | Saving Triage      | Everyday Life        |
++-------------------+--------------------+--------------------+--------------------+----------------------+
+| • Interactive 24/7| • Small business   | • Fall Armyworm    | • Infant ORS       | • Real-time language |
+|   math & physics  |   bookkeeping &    |   pest diagnosis   |   rehydration      |   translation        |
+|   tutoring        |   pricing models   | • Organic neem     | • Snakebite first  | • Draft business &   |
+| • Science concepts| • Market commodity |   leaf sprays      |   aid & burn care  |   official letters   |
+|   explained in    |   rate discovery   | • Drought-tolerant | • Maternal labor   | • Civic information, |
+|   mother-tongue   | • Micro-enterprise |   planting cycles  |   warning signs    |   rights, & legal    |
+|   dialects        |   trade strategies | • Livestock health | • Water sanitation |   processes          |
++-------------------+--------------------+--------------------+--------------------+----------------------+
+```
+
+---
+
+## ⚡ Engineering & Technical Highlights
+
+* 🧠 **State-of-the-Art Frontier Multi-LLM Engine:** Connects dynamically to leading AI research labs (Google DeepMind, OpenAI, and Meta/Groq), providing frontier reasoning speed and deep multilingual comprehension.
+* 🗣️ **Mother-Tongue & Dialect Matching:** Automatically detects the user's dialect and replies in that exact language: **Nigerian Pidgin**, **Swahili**, **Yoruba**, **Hausa**, **Igbo**, **French**, or **English**.
+* 💬 **Multi-Turn Conversational Context:** In-memory session cache maintains the last 3 conversation turns per phone number, allowing natural follow-up questions from any dumb phone.
+* 📉 **GSM-7 SMS Encoding Optimizer:** Automatically strips markdown symbols and normalizes accented Unicode diacritics into plain ASCII, ensuring messages stay long (160 chars) and cheap without carrier penalty.
+* ⚡ **Ultra-Low Latency (<10ms Webhook ACK):** Non-blocking asynchronous background architecture prevents gateway timeouts and duplicate messages.
+* 🛡️ **Intelligent Loop & Shortcode Shield:** Automatically filters out carrier notifications, 3-digit shortcodes (e.g., 312, 131), and self-echo loops.
+* 📱 **Frictionless Local Gateway:** Runs on an inexpensive spare Android phone with a local SIM card via **httpSMS**, bypassing expensive international aggregators.
 
 ---
 
 ## 🏛️ System Architecture
 
 ```
-[User's Feature Phone (itel/Nokia)]
+[Citizen's Feature Phone (itel/Nokia)]
        │
-       │ 1. Cellular SMS (e.g., "Wetin be first aid for high fever in baby?")
+       │ 1. Cellular SMS (e.g., "Wetin be best way to calculate profit for my small shop?")
        ▼
 [Local Android SIM Gateway (httpSMS Background Service)]
        │
@@ -80,8 +88,9 @@ BeaconSMS was not built to answer trivia or write essays. It is designed as an *
 [FastAPI Core Backend Engine]
        │ ──> Fast HTTP 200 ACK (< 10ms)
        │
+       ├──> Inbound Event Filter (Only processes message.phone.received)
        ├──> Fetch Session Memory (Last 3 turns for this phone)
-       ├──> Query Google Gemini / Groq with Character Constraints
+       ├──> Query Frontier AI Models (Google, OpenAI, Groq)
        ├──> Sanitize Markdown & Normalize ASCII (GSM-7 preservation)
        ├──> Cache Conversation Turn
        │
@@ -91,7 +100,7 @@ BeaconSMS was not built to answer trivia or write essays. It is designed as an *
        │
        │ 4. Cellular SMS Reply
        ▼
-[User's Feature Phone gets clear, life-saving advice in 5–7 seconds!]
+[Citizen receives clear, empowering guidance in 5–8 seconds!]
 ```
 
 ---
@@ -102,7 +111,7 @@ BeaconSMS was not built to answer trivia or write essays. It is designed as an *
 * Python 3.10+
 * An Android phone with a working SIM card and active SMS bundle
 * An account on [httpsms.com](https://httpsms.com) (free)
-* A Google Gemini API key ([Google AI Studio](https://aistudio.google.com/)) or Groq API key ([Groq Console](https://console.groq.com/))
+* An API key from a frontier AI provider (Google AI Studio, Groq, or OpenAI)
 
 ### 2. Setup the Android Gateway Phone
 1. Install the **httpSMS APK** onto the Android phone from the [httpSMS GitHub](https://github.com/NdoleStudio/httpsms/releases).
@@ -112,7 +121,7 @@ BeaconSMS was not built to answer trivia or write essays. It is designed as an *
 
 ### 3. Clone & Configure the Backend
 ```bash
-git clone https://github.com/yourusername/beacon-sms.git
+git clone https://github.com/chief-07/beacon-sms.git
 cd beacon-sms
 
 # Create virtual environment
@@ -143,14 +152,10 @@ Test health endpoint:
 curl http://localhost:8000/health
 ```
 
-### 5. Expose Webhook to the World
-Use **ngrok** to create a public URL:
-```bash
-ngrok http 8000
-```
-Copy your forward URL (e.g. `https://xyz.ngrok-free.app`) and configure it in your [httpSMS Webhooks Dashboard](https://httpsms.com/webhooks):
+### 5. Connect Webhook
+In your [httpSMS Webhooks Dashboard](https://httpsms.com/webhooks):
 * **Event:** `message.phone.received`
-* **URL:** `https://xyz.ngrok-free.app/webhook`
+* **URL:** `https://your-public-domain.com/webhook` (or Render URL)
 
 ---
 
@@ -163,20 +168,8 @@ curl -X POST http://localhost:8000/test-sms \
   -H "Content-Type: application/json" \
   -d '{
     "phone_number": "+2348011223344",
-    "message": "My baby dey stool water water, how I fit prepare salt and sugar solution?"
+    "message": "Explain how photosynthesis works in Nigerian Pidgin in two short sentences."
   }'
-```
-
-**Sample Output:**
-```json
-{
-  "user_phone": "+2348011223344",
-  "input_message": "My baby dey stool water water, how I fit prepare salt and sugar solution?",
-  "sms_reply": "Mix 1 litre clean boiled water with 6 level teaspoons sugar and half level teaspoon salt. Stir well. Give baby small sips frequently. If vomiting persists or baby is weak, take them to clinic immediately.",
-  "character_count": 218,
-  "sms_segments_estimate": 2,
-  "provider": "gemini"
-}
 ```
 
 ---
@@ -195,14 +188,14 @@ docker-compose up --build -d
 
 ## 📈 Roadmap: From Prototype to 100M Scale
 
-* [x] **Phase 1 (Hackathon MVP):** Android SIM gateway + Google Gemini 1.5 Flash + multi-dialect prompt engine + conversation memory.
+* [x] **Phase 1 (Hackathon MVP):** Android SIM gateway + Frontier AI engine + multi-dialect prompt engine + conversation memory + loop protection.
 * [ ] **Phase 2 (Telco Aggregator Integration):** Connect directly to **Africa's Talking** and **Twilio 2-Way Local Shortcodes** for 1,000+ msg/sec carrier capacity.
-* [ ] **Phase 3 (Toll-Free Government Shortcodes):** Deploy reverse-billed shortcodes (e.g., `*384#` or `7000`) sponsored by health ministries, UNICEF, and agriculture extension agencies so citizens pay zero airtime.
+* [ ] **Phase 3 (Toll-Free Government Shortcodes):** Deploy reverse-billed shortcodes (e.g., `*384#` or `7000`) sponsored by education ministries, health agencies, and UNESCO so citizens pay zero airtime.
 
 ---
 
 ## 📚 Detailed Documentation
-* 📑 [Research & Social Impact Paper](docs/RESEARCH_AND_IMPACT.md)
+* 📑 [Research & The Multiplicative AI Vision](docs/RESEARCH_AND_IMPACT.md)
 * 📐 [Technical Architecture & Encoding Specs](docs/ARCHITECTURE.md)
 * 🎤 [Pitch Deck & Live Demo Script](docs/PITCH_DECK_GUIDE.md)
 
