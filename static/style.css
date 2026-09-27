@@ -1,53 +1,104 @@
 :root {
-    /* Lean Sans-Serif Typography */
-    --font-family: 'Outfit', sans-serif;
-    
-    /* Transitions */
-    --transition-speed: 0.4s;
+    --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --transition-speed: 0.35s;
     --transition-ease: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Dark Mode (Default) */
+/* ==========================================================================
+   Dark Theme (Default)
+   ========================================================================== */
 html.dark-mode {
     --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.9);
-    --bg-overlay: rgba(0, 0, 0, 0.65);
-    --btn-bg: rgba(255, 255, 255, 0.08);
-    --btn-border: rgba(255, 255, 255, 0.15);
-    --btn-hover-bg: rgba(255, 255, 255, 0.15);
-    --btn-text: #ffffff;
-    --logo-color: #ffffff;
-    --toggle-border: rgba(255, 255, 255, 0.3);
-    --toggle-dot: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.88);
+    --subtext-color: rgba(255, 255, 255, 0.92);
+    --subtext-shadow: 0 2px 14px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.9);
+    --hero-shadow: 0 4px 24px rgba(0, 0, 0, 0.65);
+    
+    /* Pill Gateway Buttons */
+    --pill-bg: rgba(18, 26, 43, 0.65);
+    --pill-border: rgba(255, 255, 255, 0.22);
+    --pill-hover-bg: rgba(30, 42, 68, 0.85);
+    --pill-hover-border: rgba(255, 255, 255, 0.5);
+    --pill-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    --pill-hover-shadow: 0 14px 44px rgba(0, 0, 0, 0.6), 0 0 24px rgba(56, 189, 248, 0.2);
+    --pill-tag-text: rgba(255, 255, 255, 0.75);
+    --pill-action-bg: rgba(255, 255, 255, 0.1);
+    --pill-action-border: rgba(255, 255, 255, 0.2);
+    --pill-action-text: #ffffff;
+    --pill-action-hover-bg: rgba(255, 255, 255, 0.22);
+    --pill-action-hover-text: #ffffff;
+
+    /* Status Pill */
+    --status-pill-bg: rgba(15, 23, 42, 0.65);
+    --status-pill-border: rgba(255, 255, 255, 0.16);
+    --status-pill-text: rgba(255, 255, 255, 0.82);
+    --status-pill-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+
+    /* Feedback */
+    --feedback-color: #38bdf8;
+
+    /* Side Controls & Theme Toggle */
+    --toggle-track-bg: rgba(15, 23, 42, 0.75);
+    --toggle-border: rgba(255, 255, 255, 0.25);
+    --toggle-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    --toggle-icon-color: rgba(255, 255, 255, 0.5);
+    --toggle-dot: #f8fafc;
 }
 
-/* Light Mode */
+/* ==========================================================================
+   Light Theme (High-Key Frosted Editorial)
+   ========================================================================== */
 html.light-mode {
-    --text-primary: #111111;
-    --text-secondary: #555555;
-    --bg-overlay: rgba(255, 255, 255, 0.7);
-    --btn-bg: rgba(0, 0, 0, 0.05);
-    --btn-border: rgba(0, 0, 0, 0.1);
-    --btn-hover-bg: rgba(0, 0, 0, 0.1);
-    --btn-text: #111111;
-    --logo-color: #111111;
-    --toggle-border: rgba(0, 0, 0, 0.3);
-    --toggle-dot: #111111;
+    --text-primary: #09101d;
+    --text-secondary: #243248;
+    --subtext-color: #1e293b;
+    --subtext-shadow: 0 1px 8px rgba(255, 255, 255, 0.95);
+    --hero-shadow: 0 2px 16px rgba(255, 255, 255, 0.8);
+    
+    /* Pill Gateway Buttons */
+    --pill-bg: rgba(255, 255, 255, 0.88);
+    --pill-border: rgba(15, 23, 42, 0.16);
+    --pill-hover-bg: #ffffff;
+    --pill-hover-border: rgba(15, 23, 42, 0.35);
+    --pill-shadow: 0 8px 30px rgba(15, 23, 42, 0.1);
+    --pill-hover-shadow: 0 14px 40px rgba(15, 23, 42, 0.16), 0 0 20px rgba(56, 189, 248, 0.25);
+    --pill-tag-text: #475569;
+    --pill-action-bg: rgba(15, 23, 42, 0.06);
+    --pill-action-border: rgba(15, 23, 42, 0.12);
+    --pill-action-text: #0f172a;
+    --pill-action-hover-bg: rgba(15, 23, 42, 0.12);
+    --pill-action-hover-text: #000000;
+
+    /* Status Pill */
+    --status-pill-bg: rgba(255, 255, 255, 0.85);
+    --status-pill-border: rgba(15, 23, 42, 0.12);
+    --status-pill-text: #334155;
+    --status-pill-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+
+    /* Feedback */
+    --feedback-color: #0284c7;
+
+    /* Side Controls & Theme Toggle */
+    --toggle-track-bg: rgba(255, 255, 255, 0.9);
+    --toggle-border: rgba(15, 23, 42, 0.2);
+    --toggle-shadow: 0 4px 20px rgba(15, 23, 42, 0.1);
+    --toggle-icon-color: rgba(15, 23, 42, 0.45);
+    --toggle-dot: #0f172a;
 }
 
-/* Reset */
+/* ==========================================================================
+   CSS Reset & Base Rules
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* Hide default cursor on desktop to use custom cursor */
-    cursor: none !important; 
+    cursor: none !important; /* Hide native cursor on desktop to show custom cursor */
 }
 
-/* Mobile override for cursor */
 @media (max-width: 768px) {
     * {
-        cursor: auto !important;
+        cursor: auto !important; /* Restore standard touch behavior on mobile */
     }
 }
 
@@ -60,36 +111,58 @@ body {
     transition: color var(--transition-speed) var(--transition-ease);
 }
 
-/* Background Image */
+/* ==========================================================================
+   Background & Atmospheric Layers
+   ========================================================================== */
 .bg-image {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     background: url('./assets/beaconbg.png') center center/cover no-repeat;
     z-index: -2;
-    transition: filter var(--transition-speed) ease;
+    transition: filter var(--transition-speed) ease, opacity var(--transition-speed) ease;
 }
 
-/* Light Mode background treatment */
+html.dark-mode .bg-image {
+    filter: brightness(0.9) contrast(1.05);
+}
+
 html.light-mode .bg-image {
-    filter: brightness(0.85) contrast(1.1);
+    filter: brightness(1.15) saturate(1.1);
+    opacity: 0.65;
 }
 
-html.light-mode .logo-icon {
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+/* Atmospheric Vignette & Contrast Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    transition: background var(--transition-speed) ease, backdrop-filter var(--transition-speed) ease;
 }
 
-/* Overlay removed. Background handles it, shadows make text pop */
+html.dark-mode .overlay {
+    background: radial-gradient(ellipse at 50% 42%, rgba(10, 16, 28, 0.38) 0%, rgba(5, 8, 16, 0.78) 100%);
+}
 
-/* Center Content */
+html.light-mode .overlay {
+    background: radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.72) 0%, rgba(241, 245, 249, 0.88) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* ==========================================================================
+   Center Stack Content & Layout
+   ========================================================================== */
 .content-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
+    min-height: 100vh;
+    width: 100vw;
     padding: 2rem;
 }
 
@@ -98,203 +171,84 @@ html.light-mode .logo-icon {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    max-width: 800px;
-}
-
-/* Logo */
-.logo-container {
-    margin-bottom: 2rem;
-}
-
-.logo-icon {
-    width: 80px;
-    height: 80px;
-    color: var(--logo-color);
-    transition: color var(--transition-speed) var(--transition-ease);
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    max-width: 860px;
+    margin-top: -6vh; /* Pushes hero content higher up for prime visual focus */
+    position: relative;
+    z-index: 10;
 }
 
 /* Typography */
 .hero-text {
-    font-size: clamp(3rem, 6vw, 5rem);
-    font-weight: 400; /* Adjusted for Outfit */
-    letter-spacing: -0.04em;
-    line-height: 1.1;
-    margin-bottom: calc(1rem - 0.2em);
-    padding-bottom: 0.2em; /* Prevents descenders from being cut by the mask */
+    font-size: clamp(3.2rem, 6.5vw, 5.2rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+    margin-bottom: 1.15rem;
+    color: var(--text-primary);
+    text-shadow: var(--hero-shadow);
     transition: color var(--transition-speed) var(--transition-ease);
-    text-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    opacity: 0.8;
-    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,1) 100%);
-    mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,1) 100%);
 }
 
 .subtext {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    font-weight: 300;
-    color: var(--text-secondary);
-    max-width: 500px;
-    line-height: 1.5;
-    margin-bottom: 2rem;
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    font-weight: 400;
+    color: var(--subtext-color);
+    max-width: 640px;
+    line-height: 1.55;
+    margin-bottom: 0.5rem;
+    text-shadow: var(--subtext-shadow);
     transition: color var(--transition-speed) var(--transition-ease);
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-/* Claim Input Box */
-.claim-container {
-    margin-bottom: 2rem;
-    width: 100%;
-    max-width: 320px;
-}
-
-.input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    border-radius: 999px;
-    padding: 0.75rem 1.25rem;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: border-color var(--transition-speed);
-}
-
-.input-wrapper:focus-within {
-    border-color: rgba(255, 255, 255, 0.8);
-}
-
-html.light-mode .input-wrapper:focus-within {
-    border-color: rgba(0, 0, 0, 0.5);
-}
-
-.at-symbol {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    font-weight: 400;
-    margin-right: 0.25rem;
-}
-
-.username-input {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--text-primary);
-    font-family: var(--font-family);
-    font-size: 1.1rem;
-    font-weight: 400;
-    width: 100%;
-}
-
-.username-input::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.5;
-}
-
-.status-indicator {
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 0.5rem;
-}
-
-/* Spinner Animation */
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-.status-indicator.loading {
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-
-html.light-mode .status-indicator.loading {
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-top-color: #111;
-}
-
-.status-indicator.available svg {
-    color: #4ade80; /* smooth green */
-}
-
-.status-indicator.taken svg {
-    color: #f87171; /* smooth red */
-}
-
-/* Dual SMS Gateway Action Buttons */
+/* ==========================================================================
+   Clean Pill-Shaped Gateway Buttons (No text wrapping)
+   ========================================================================== */
 .sms-numbers-wrapper {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 14px;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    max-width: 480px;
-    margin-top: 1.5rem;
+    max-width: 780px;
+    margin-top: 1.75rem;
     z-index: 10;
 }
 
-@media (min-width: 640px) {
-    .sms-numbers-wrapper {
-        flex-direction: row;
-        max-width: 680px;
-    }
-}
-
-.sms-card-btn {
-    flex: 1;
-    display: flex;
+.sms-pill-btn {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    border-radius: 16px;
-    padding: 0.95rem 1.25rem;
+    gap: 9px;
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    border-radius: 9999px; /* True pill shape */
+    padding: 0.72rem 1.25rem;
     text-decoration: none;
     color: var(--text-primary);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.28);
-    transition: all 0.3s var(--transition-ease);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--pill-shadow);
+    transition: all 0.25s var(--transition-ease);
+    white-space: nowrap; /* Strictly prevents text wrapping */
+    user-select: none;
     position: relative;
-    overflow: hidden;
 }
 
-.sms-card-btn:hover {
-    background: rgba(255, 255, 255, 0.16);
-    border-color: rgba(255, 255, 255, 0.45);
-    transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
+.sms-pill-btn:hover {
+    background: var(--pill-hover-bg);
+    border-color: var(--pill-hover-border);
+    transform: translateY(-2px);
+    box-shadow: var(--pill-hover-shadow);
 }
 
-.sms-card-btn:active {
-    transform: translateY(-1px);
+.sms-pill-btn:active {
+    transform: translateY(0);
 }
 
-html.light-mode .sms-card-btn {
-    background: rgba(255, 255, 255, 0.75);
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-html.light-mode .sms-card-btn:hover {
-    background: rgba(255, 255, 255, 0.95);
-    border-color: rgba(0, 0, 0, 0.3);
-}
-
-.sms-card-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-align: left;
-}
-
+/* Live Pulsing Dot Indicators */
 .live-dot {
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     display: inline-block;
     flex-shrink: 0;
@@ -302,14 +256,14 @@ html.light-mode .sms-card-btn:hover {
 
 .pulse-green {
     background-color: #22c55e;
-    box-shadow: 0 0 12px #22c55e;
-    animation: pulseGlow 2s infinite;
+    box-shadow: 0 0 10px #22c55e;
+    animation: pulseGlow 2s infinite ease-in-out;
 }
 
 .pulse-blue {
     background-color: #38bdf8;
-    box-shadow: 0 0 12px #38bdf8;
-    animation: pulseGlow 2s infinite;
+    box-shadow: 0 0 10px #38bdf8;
+    animation: pulseGlow 2s infinite ease-in-out;
 }
 
 @keyframes pulseGlow {
@@ -317,71 +271,71 @@ html.light-mode .sms-card-btn:hover {
     50% { opacity: 0.55; transform: scale(0.85); }
 }
 
-.sms-card-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.sms-card-badge {
-    font-size: 0.65rem;
+/* Pill Inner Typography */
+.pill-label {
+    font-size: 0.68rem;
+    font-weight: 700;
     letter-spacing: 0.08em;
-    font-weight: 600;
     text-transform: uppercase;
-    color: var(--text-secondary);
-    opacity: 0.85;
+    color: var(--pill-tag-text);
+    transition: color var(--transition-speed) ease;
 }
 
-.sms-card-number {
-    font-size: 1.05rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    font-family: var(--font-family);
-    color: var(--text-primary);
-}
-
-.sms-card-action {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+.pill-divider {
     font-size: 0.75rem;
-    font-weight: 500;
+    opacity: 0.35;
     color: var(--text-secondary);
-    padding: 6px 10px;
+    user-select: none;
+}
+
+.pill-number {
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    color: var(--text-primary);
+    transition: color var(--transition-speed) ease;
+}
+
+/* Action Chip Inside Pill */
+.pill-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--pill-action-text);
+    padding: 4px 10px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--pill-action-bg);
+    border: 1px solid var(--pill-action-border);
+    margin-left: 3px;
     transition: all 0.2s ease;
 }
 
-.sms-card-btn:hover .sms-card-action {
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.18);
+.sms-pill-btn:hover .pill-action {
+    background: var(--pill-action-hover-bg);
+    color: var(--pill-action-hover-text);
 }
 
-html.light-mode .sms-card-action {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.12);
+.copy-icon {
+    display: inline-block;
+    flex-shrink: 0;
 }
 
-.live-status-pill {
-    margin-top: 1.25rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    letter-spacing: 0.02em;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-    opacity: 0.9;
-}
-
+/* ==========================================================================
+   Copy Feedback Toast Notification
+   ========================================================================== */
 .copy-feedback {
-    margin-top: 1rem;
-    font-size: 0.9rem;
+    min-height: 24px;
+    margin-top: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--feedback-color);
     opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transform: translateY(-8px);
+    transition: all 0.28s var(--transition-ease);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
 }
 
 .copy-feedback.show {
@@ -389,173 +343,274 @@ html.light-mode .sms-card-action {
     transform: translateY(0);
 }
 
-/* Side Controls */
+/* ==========================================================================
+   Status Pill (Dialect & Network Badge)
+   ========================================================================== */
+.live-status-pill {
+    margin-top: 1.4rem;
+    font-size: 0.82rem;
+    font-weight: 450;
+    letter-spacing: 0.02em;
+    color: var(--status-pill-text);
+    background: var(--status-pill-bg);
+    border: 1px solid var(--status-pill-border);
+    border-radius: 999px;
+    padding: 6px 18px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--status-pill-shadow);
+    transition: all var(--transition-speed) var(--transition-ease);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================================
+   Side Controls (Theme Toggle & Audio Toggle)
+   ========================================================================== */
 .side-controls {
     position: fixed;
-    right: 60px;
+    right: 50px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    gap: 16px;
     z-index: 100;
 }
 
-/* Theme Toggle (Circle Dot at the side) */
+/* Vertical Pill Theme Switch */
 .theme-toggle {
     position: relative;
-    width: 24px;
-    height: 48px;
+    width: 32px;
+    height: 60px;
+    border-radius: 999px;
+    background: var(--toggle-track-bg);
     border: 1px solid var(--toggle-border);
-    border-radius: 20px;
+    box-shadow: var(--toggle-shadow);
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 3px;
-    transition: border-color var(--transition-speed) var(--transition-ease);
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    outline: none;
+    transition: border-color var(--transition-speed) var(--transition-ease),
+                background-color var(--transition-speed) var(--transition-ease),
+                box-shadow var(--transition-speed) var(--transition-ease);
 }
 
+.theme-toggle:hover {
+    transform: scale(1.04);
+}
+
+.toggle-icon {
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--toggle-icon-color);
+    transition: color var(--transition-speed) ease, opacity var(--transition-speed) ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.sun-icon {
+    margin-top: 1px;
+}
+
+.moon-icon {
+    margin-bottom: 1px;
+}
+
+/* The Sliding Knob */
 .theme-toggle .dot {
-    width: 16px;
-    height: 16px;
+    position: absolute;
+    top: 5px;
+    left: 4px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     background-color: var(--toggle-dot);
-    transition: all var(--transition-speed) var(--transition-ease);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background-color var(--transition-speed) ease;
+    z-index: 2;
+    pointer-events: none;
 }
 
+/* Dark Mode: Knob sits on moon at bottom */
+html.dark-mode .theme-toggle .dot {
+    transform: translateY(28px);
+}
+
+/* Light Mode: Knob sits on sun at top */
 html.light-mode .theme-toggle .dot {
-    transform: translateY(24px); /* Move dot down for light mode */
+    transform: translateY(0);
 }
 
-/* Audio Toggle */
+/* Audio Toggle Button */
 .audio-toggle {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--toggle-track-bg);
+    border: 1px solid var(--toggle-border);
+    box-shadow: var(--toggle-shadow);
+    color: var(--text-primary);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--toggle-dot);
-    opacity: 0.7;
-    transition: all 0.2s ease;
+    outline: none;
+    transition: all 0.25s ease;
 }
 
 .audio-toggle:hover {
-    opacity: 1;
     transform: scale(1.1);
+    border-color: var(--pill-hover-border);
 }
 
-/* Custom Cursor */
+/* ==========================================================================
+   Custom Trailing Cursor
+   ========================================================================== */
 #custom-cursor {
     position: fixed;
     top: 0;
     left: 0;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     background-color: #ffffff;
     mix-blend-mode: difference;
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s;
+    transition: width 0.2s ease, height 0.2s ease;
 }
 
-/* Enlarge cursor slightly when hovering interactable elements */
 body.hovering #custom-cursor {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
 }
 
-@media (max-width: 768px) {
-    #custom-cursor {
-        display: none; /* Hide custom cursor on mobile touch devices */
-    }
-    .side-controls {
-        right: 15px;
-        top: 20px;
-        transform: translateY(0);
-        flex-direction: row;
-        align-items: center;
-        gap: 15px;
-    }
-    .theme-toggle {
-        width: 48px;
-        height: 24px;
-        align-items: center;
-        justify-content: flex-start;
-    }
-    .theme-toggle .dot {
-        transform: translateX(0) translateY(0);
-    }
-    html.light-mode .theme-toggle .dot {
-        transform: translateX(24px) translateY(0);
-    }
-}
-
-
-
-
-/* Marquee Styles */
+/* ==========================================================================
+   Partner Ecosystem Marquee
+   ========================================================================== */
 .marquee-container {
     position: absolute;
-    left: 4rem;
+    left: 3.5rem;
     top: 0;
     bottom: 0;
-    width: 60px;
+    width: 50px;
     overflow: hidden;
     pointer-events: none;
     z-index: 5;
-    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
 }
 
 .marquee-track {
     display: flex;
     flex-direction: column;
-    animation: scroll-vertical 25s linear infinite;
+    animation: scroll-vertical 28s linear infinite;
 }
 
 .marquee-icon {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
     object-fit: contain;
-    opacity: 0.8;
-    margin-bottom: 3rem;
-    -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 100%);
-    mask-image: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 100%);
-    filter: grayscale(100%) contrast(1.2);
+    opacity: 0.75;
+    margin-bottom: 2.5rem;
+    filter: grayscale(100%) contrast(1.15);
     transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
 @keyframes scroll-vertical {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-50%);
-    }
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
 }
 
-/* Light Mode Theme Adjustments for Marquee */
 html.light-mode .marquee-icon {
-    filter: grayscale(100%) invert(1) contrast(1.2);
-    opacity: 0.5;
+    filter: grayscale(100%) invert(0.85) contrast(1.1);
+    opacity: 0.6;
 }
 
-/* Responsive adjustments */
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
 @media (max-width: 1024px) {
     .marquee-container {
-        left: 1rem;
-        width: 40px;
+        left: 1.25rem;
+        width: 36px;
     }
     .marquee-icon {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
+    }
+    .side-controls {
+        right: 25px;
     }
 }
 
 @media (max-width: 768px) {
+    #custom-cursor {
+        display: none;
+    }
     .marquee-container {
         display: none;
+    }
+    .side-controls {
+        right: 20px;
+        top: 25px;
+        transform: translateY(0);
+        flex-direction: row;
+        gap: 12px;
+    }
+    
+    /* Horizontal Theme Switch on Mobile */
+    .theme-toggle {
+        width: 60px;
+        height: 32px;
+        flex-direction: row;
+        padding: 4px;
+    }
+    .sun-icon {
+        margin-top: 0;
+        margin-left: 2px;
+    }
+    .moon-icon {
+        margin-bottom: 0;
+        margin-right: 2px;
+    }
+    .theme-toggle .dot {
+        top: 4px;
+        left: 4px;
+    }
+    html.dark-mode .theme-toggle .dot {
+        transform: translateX(28px) translateY(0);
+    }
+    html.light-mode .theme-toggle .dot {
+        transform: translateX(0) translateY(0);
+    }
+
+    .center-stack {
+        margin-top: 0;
+        padding: 1rem 0;
+    }
+    .hero-text {
+        font-size: 2.8rem;
+    }
+    .subtext {
+        font-size: 1.05rem;
+    }
+    .sms-numbers-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 380px;
+    }
+    .sms-pill-btn {
+        justify-content: space-between;
+        padding: 0.75rem 1.15rem;
     }
 }

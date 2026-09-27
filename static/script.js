@@ -3,9 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Custom Cursor Logic ---
     const cursor = document.getElementById("custom-cursor");
     
-    // Update cursor position
+    // Smooth trailing cursor position
     document.addEventListener("mousemove", (e) => {
-        // Using requestAnimationFrame for smooth performance
         requestAnimationFrame(() => {
             if (cursor) {
                 cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
@@ -14,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Add hovering effect when over interactive elements
-    const interactiveElements = document.querySelectorAll('button, .theme-toggle, .audio-toggle, .sms-card-btn, a');
+    const interactiveElements = document.querySelectorAll('button, .theme-toggle, .audio-toggle, .sms-pill-btn, .sms-card-btn, a');
     interactiveElements.forEach(el => {
         el.addEventListener("mouseenter", () => {
             document.body.classList.add("hovering");
@@ -41,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- Dual SMS Gateway Copy & Launch Logic ---
-    const smsButtons = document.querySelectorAll(".sms-card-btn");
+    const smsButtons = document.querySelectorAll(".sms-pill-btn, .sms-card-btn");
     const copyFeedback = document.getElementById("copy-feedback");
     let feedbackTimer;
 
@@ -55,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 await navigator.clipboard.writeText(phone);
                 
                 if (copyFeedback) {
-                    copyFeedback.textContent = `Copied ${phone}! Send any SMS from your phone to start chatting live.`;
+                    copyFeedback.textContent = `Copied ${phone}! Send any SMS from your phone with zero internet required.`;
                     copyFeedback.classList.add("show");
                     clearTimeout(feedbackTimer);
                     feedbackTimer = setTimeout(() => {
@@ -69,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     actionLabel.textContent = "Copied!";
                     setTimeout(() => {
                         actionLabel.textContent = originalText;
-                    }, 2000);
+                    }, 2200);
                 }
             } catch (err) {
                 console.warn("Clipboard write failed:", err);
