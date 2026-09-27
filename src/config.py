@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     httpsms_api_key: str = Field(default="", description="httpSMS API Key from httpsms.com/settings")
     gateway_phone_number: str = Field(default="", description="Primary owner phone number on Android SIM in E.164 (+234...)")
     secondary_phone_number: Optional[str] = Field(default=None, description="Optional secondary backup gateway phone number")
+    secondary_httpsms_api_key: Optional[str] = Field(default=None, description="Optional secondary httpSMS API Key for backup SIM")
     httpsms_signing_key: Optional[str] = Field(default=None, description="Optional webhook signing key")
 
     # LLM Settings

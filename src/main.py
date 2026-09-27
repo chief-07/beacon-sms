@@ -84,7 +84,9 @@ async def health_check():
         "active_sessions": len(memory_service.sessions),
         "gateway_phone": settings.gateway_phone_number or "not-configured",
         "secondary_phone": settings.secondary_phone_number or "not-configured",
-        "simulation_mode": not bool(settings.httpsms_api_key)
+        "primary_gateway_active": bool(settings.httpsms_api_key),
+        "secondary_gateway_active": bool(settings.secondary_httpsms_api_key),
+        "simulation_mode": not bool(settings.httpsms_api_key or settings.secondary_httpsms_api_key)
     }
 
 

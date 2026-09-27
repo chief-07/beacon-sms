@@ -5,6 +5,7 @@ Includes automatic failover to a secondary backup phone number and simulation mo
 
 import httpx
 import logging
+import re
 from typing import Optional, Dict, Any
 
 from src.config import settings
@@ -17,11 +18,24 @@ HTTPSMS_API_URL = "https://api.httpsms.com/v1/messages/send"
 class SMSService:
     def __init__(self):
         self.api_key = settings.httpsms_api_key
+        self.secondary_api_key = settings.secondary_httpsms_api_key
         self.default_gateway = settings.gateway_phone_number
+
+    def _get_api_key_for_sender(self, sender: str) -> Optional[str]:
+        """Resolves the appropriate API key depending on which gateway SIM is sending."""
+        sender_digits = re.sub(r'\D', '', str(sender or ''))
+        sec_digits = re.sub(r'\D', '', str(settings.secondary_phone_number or ''))
+        
+        # If the outbound message is routed through the secondary SIM
+        if sec_digits and sender_digits == sec_digits and self.secondary_api_key:
+            return self.secondary_api_key
+        
+        return self.api_key or self.secondary_api_key
 
     async def _dispatch_single(self, to_phone: str, content: str, sender: str) -> Dict[str, Any]:
         """Dispatches an outbound SMS payload to the httpSMS endpoint."""
-        if not self.api_key or self.api_key == "your_httpsms_api_key_here":
+        api_key = self._get_api_key_for_sender(sender)
+        if not api_key or api_key in ("your_httpsms_api_key_here", "your_secondary_httpsms_api_key_here"):
             logger.info(
                 f"[SIMULATION MODE] Would send SMS:\n"
                 f"  To: {to_phone}\n"
@@ -38,7 +52,7 @@ class SMSService:
             }
 
         headers = {
-            "x-api-key": self.api_key,
+            "x-api-key": api_key,
             "Content-Type": "application/json"
         }
 
