@@ -13,6 +13,14 @@ def test_health_check():
     assert data["service"] == "BeaconSMS Gateway"
 
 
+def test_landing_page_served():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "BeaconSMS" in response.text
+    assert "+234 913 262 8938" in response.text
+    assert "+234 814 688 2274" in response.text
+
+
 def test_cloudevents_webhook_incoming():
     payload = {
         "specversion": "1.0",

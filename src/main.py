@@ -6,7 +6,9 @@ A high-throughput, low-latency SMS-to-AI intelligence gateway.
 from fastapi import FastAPI, BackgroundTasks, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 import logging
+import os
 import re
 from typing import Dict, Any
 
@@ -70,7 +72,6 @@ async def process_sms_pipeline(sender: str, message: str, gateway_number: str = 
         logger.error(f"Failed in SMS processing pipeline for {sender}: {e}", exc_info=True)
 
 
-@app.get("/")
 @app.get("/health")
 async def health_check():
     """Health and diagnostic endpoint for cloud liveness probes."""
@@ -215,3 +216,10 @@ async def reset_session(phone_number: str):
     """Reset conversational memory for a given phone number."""
     memory_service.clear_session(phone_number)
     return {"status": "cleared", "phone_number": phone_number}
+
+
+# Mount static landing page
+static_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "static")
+if os.path.isdir(static_dir):
+    app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
+
