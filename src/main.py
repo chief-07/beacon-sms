@@ -7,6 +7,7 @@ from fastapi import FastAPI, BackgroundTasks, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import logging
+import re
 from typing import Dict, Any
 
 from src.config import settings
@@ -121,6 +122,26 @@ async def incoming_sms_webhook(
     if not sender or not message:
         logger.warning(f"Ignored webhook missing contact/content: {raw_body}")
         return {"status": "ignored", "reason": "Missing contact or content field"}
+
+    # 1. Clean sender digits
+    sender_digits = re.sub(r'\D', '', str(sender))
+
+    # 2. Block Carrier Shortcodes (e.g. 312, 131, 555)
+    # Real African mobile numbers have at least 8 to 14 digits (e.g. 080... or +234...)
+    if len(sender_digits) < 7:
+        logger.warning(f"BLOCKED carrier shortcode message from '{sender}'. No reply will be sent.")
+        return {"status": "ignored", "reason": "Carrier shortcode blocked"}
+
+    # 3. Block self-loop (if Android gateway phone texts itself)
+    gateway_digits = re.sub(r'\D', '', str(settings.gateway_phone_number or owner or ""))
+    if gateway_digits and sender_digits == gateway_digits:
+        logger.warning(f"BLOCKED self-loop message from gateway number '{sender}'.")
+        return {"status": "ignored", "reason": "Self-loop blocked"}
+
+    # 4. Block echo of our own system replies
+    if message.strip().startswith("Beacon:"):
+        logger.info("BLOCKED echo of system message.")
+        return {"status": "ignored", "reason": "Echo loop blocked"}
 
     # Schedule background processing to avoid httpSMS retry loops
     background_tasks.add_task(

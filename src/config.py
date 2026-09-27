@@ -21,7 +21,7 @@ class Settings(BaseSettings):
 
     # Google Gemini
     gemini_api_key: Optional[str] = Field(default=None)
-    gemini_model: str = Field(default="gemini-1.5-flash")
+    gemini_model: str = Field(default="gemini-3.1-flash-lite")
 
     # Groq
     groq_api_key: Optional[str] = Field(default=None)
