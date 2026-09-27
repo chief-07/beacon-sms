@@ -1,11 +1,13 @@
 """
-AI Service: Multilingual Intelligence engine supporting Google Gemini, Groq, and OpenAI.
+AI Service: Lightweight Multilingual Intelligence engine.
+Uses direct REST HTTP calls for Google Gemini (fastest, zero heavy SDK overhead).
 Applies SMS-safe text cleaning and character budgeting.
 """
 
 import re
 import unicodedata
 import logging
+import httpx
 from typing import List, Dict, Optional
 
 from src.config import settings
@@ -56,21 +58,7 @@ class AIService:
         self._init_clients()
 
     def _init_clients(self):
-        # Gemini initialization
-        self.gemini_model = None
-        if settings.gemini_api_key:
-            try:
-                import google.generativeai as genai
-                genai.configure(api_key=settings.gemini_api_key)
-                self.gemini_model = genai.GenerativeModel(
-                    model_name=settings.gemini_model,
-                    system_instruction=build_system_prompt(settings.max_sms_characters)
-                )
-                logger.info(f"Gemini client initialized with model: {settings.gemini_model}")
-            except Exception as e:
-                logger.warning(f"Failed to initialize Gemini: {e}")
-
-        # Groq initialization
+        # Groq client initialization (if configured)
         self.groq_client = None
         if settings.groq_api_key:
             try:
@@ -80,7 +68,7 @@ class AIService:
             except Exception as e:
                 logger.warning(f"Failed to initialize Groq: {e}")
 
-        # OpenAI initialization
+        # OpenAI client initialization (if configured)
         self.openai_client = None
         if settings.openai_api_key:
             try:
@@ -100,16 +88,16 @@ class AIService:
         response_text = ""
 
         try:
-            if self.provider == "gemini" and self.gemini_model:
-                response_text = await self._generate_gemini(history, user_message)
+            if self.provider == "gemini" and settings.gemini_api_key:
+                response_text = await self._generate_gemini_rest(system_prompt, history, user_message)
             elif self.provider == "groq" and self.groq_client:
                 response_text = await self._generate_groq(system_prompt, history, user_message)
             elif self.provider == "openai" and self.openai_client:
                 response_text = await self._generate_openai(system_prompt, history, user_message)
             else:
                 # Automatic fallback cascade
-                if self.gemini_model:
-                    response_text = await self._generate_gemini(history, user_message)
+                if settings.gemini_api_key:
+                    response_text = await self._generate_gemini_rest(system_prompt, history, user_message)
                 elif self.groq_client:
                     response_text = await self._generate_groq(system_prompt, history, user_message)
                 elif self.openai_client:
@@ -130,19 +118,46 @@ class AIService:
 
         return clean_response
 
-    async def _generate_gemini(self, history: List[Dict[str, str]], user_message: str) -> str:
-        # Build chat contents
-        chat_contents = []
+    async def _generate_gemini_rest(self, system_prompt: str, history: List[Dict[str, str]], user_message: str) -> str:
+        """
+        Calls Google Gemini directly via lightweight HTTP REST.
+        Ultra-fast, zero heavy SDK overhead, and 100% compatible with modern 'AQ.' auth keys.
+        """
+        model = settings.gemini_model or "gemini-1.5-flash"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={settings.gemini_api_key}"
+
+        contents = []
         for msg in history:
             role = "user" if msg["role"] == "user" else "model"
-            chat_contents.append({"role": role, "parts": [msg["content"]]})
-        chat_contents.append({"role": "user", "parts": [user_message]})
+            contents.append({"role": role, "parts": [{"text": msg["content"]}]})
+        contents.append({"role": "user", "parts": [{"text": user_message}]})
 
-        response = await self.gemini_model.generate_content_async(
-            contents=chat_contents,
-            generation_config={"max_output_tokens": 150, "temperature": 0.3}
-        )
-        return response.text if response and response.text else ""
+        payload = {
+            "system_instruction": {
+                "parts": [{"text": system_prompt}]
+            },
+            "contents": contents,
+            "generationConfig": {
+                "maxOutputTokens": 800,
+                "temperature": 0.2
+            }
+        }
+
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            resp = await client.post(url, json=payload)
+            if resp.status_code != 200:
+                logger.error(f"Gemini REST error {resp.status_code}: {resp.text}")
+                resp.raise_for_status()
+
+            data = resp.json()
+            candidates = data.get("candidates", [])
+            if candidates and "content" in candidates[0]:
+                parts = candidates[0]["content"].get("parts", [])
+                text_parts = [p.get("text", "") for p in parts if "text" in p]
+                if text_parts:
+                    return "".join(text_parts).strip()
+
+            return ""
 
     async def _generate_groq(self, system_prompt: str, history: List[Dict[str, str]], user_message: str) -> str:
         messages = [{"role": "system", "content": system_prompt}]
