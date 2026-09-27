@@ -85,6 +85,7 @@ async def health_check():
     }
 
 
+@app.post("/", status_code=status.HTTP_200_OK)
 @app.post("/webhook", status_code=status.HTTP_200_OK)
 async def incoming_sms_webhook(
     request: Request,
