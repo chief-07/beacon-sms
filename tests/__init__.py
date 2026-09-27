@@ -1,0 +1,1 @@
+"""BeaconSMS Test Suite"""

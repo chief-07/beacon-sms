@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  beacon-sms:
+    build: .
+    container_name: beacon_sms_gateway
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./src:/app/src
