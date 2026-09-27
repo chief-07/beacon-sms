@@ -3,7 +3,7 @@ Memory Service: In-memory session tracking for SMS conversation history with TTL
 Enables multi-turn context on dumb feature phones.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional
 import logging
 
@@ -14,11 +14,11 @@ class UserSession:
     def __init__(self, phone_number: str):
         self.phone_number = phone_number
         self.history: List[Dict[str, str]] = []  # [{"role": "user"/"assistant", "content": "..."}]
-        self.last_active = datetime.utcnow()
+        self.last_active = datetime.now(timezone.utc)
 
     def add_message(self, role: str, content: str, max_turns: int = 3):
         self.history.append({"role": role, "content": content})
-        self.last_active = datetime.utcnow()
+        self.last_active = datetime.now(timezone.utc)
         # Keep only the last N turns (1 turn = 1 user + 1 assistant)
         max_messages = max_turns * 2
         if len(self.history) > max_messages:
@@ -36,7 +36,7 @@ class MemoryService:
 
     def _cleanup(self):
         """Remove expired sessions to prevent memory leaks."""
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         expired_keys = [
             phone for phone, session in self.sessions.items()
             if now - session.last_active > self.ttl

@@ -42,9 +42,10 @@ def sanitize_for_sms(text: str, max_chars: int = 280) -> str:
 
     # Truncate cleanly at word boundary if over max_chars
     if len(ascii_clean) > max_chars:
-        truncated = ascii_clean[:max_chars]
+        budget = max_chars - 3
+        truncated = ascii_clean[:budget]
         last_space = truncated.rfind(' ')
-        if last_space > max_chars - 30:
+        if last_space > budget - 30:
             ascii_clean = truncated[:last_space] + "..."
         else:
             ascii_clean = truncated + "..."

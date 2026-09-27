@@ -55,3 +55,42 @@ def test_invalid_webhook_ignored():
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "ignored"
+
+
+def test_sent_and_delivered_events_ignored():
+    # Outbound delivery events should be instantly discarded to prevent loops
+    for event_type in ["message.phone.sent", "message.phone.delivered", "message.send.failed"]:
+        payload = {
+            "type": event_type,
+            "data": {
+                "contact": "+2348012345678",
+                "content": "This is an outbound AI message that must not loop",
+                "owner": "+2348000000000"
+            }
+        }
+        response = client.post("/webhook", json=payload)
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "ignored"
+        assert "not an incoming message" in data["reason"]
+
+
+def test_duplicate_message_ignored():
+    payload = {
+        "type": "message.phone.received",
+        "data": {
+            "contact": "+2348011223344",
+            "content": "First message",
+            "message_id": "unique-msg-999"
+        }
+    }
+    r1 = client.post("/webhook", json=payload)
+    assert r1.status_code == 200
+    assert r1.json()["status"] == "queued"
+
+    # Exact same message ID again should be ignored
+    r2 = client.post("/webhook", json=payload)
+    assert r2.status_code == 200
+    assert r2.json()["status"] == "ignored"
+    assert r2.json()["reason"] == "Duplicate message"
+

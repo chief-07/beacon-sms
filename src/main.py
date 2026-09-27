@@ -86,6 +86,9 @@ async def health_check():
     }
 
 
+processed_message_ids = set()
+
+
 @app.post("/", status_code=status.HTTP_200_OK)
 @app.post("/webhook", status_code=status.HTTP_200_OK)
 async def incoming_sms_webhook(
@@ -102,6 +105,29 @@ async def incoming_sms_webhook(
         raw_body = await request.json()
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid JSON payload")
+
+    # 0. STRICT EVENT FILTER: ONLY process incoming user SMS!
+    # Discards message.phone.sent, message.phone.delivered, message.send.failed, etc.
+    event_type = raw_body.get("type")
+    if event_type and event_type != "message.phone.received":
+        logger.info(f"Ignored non-inbound webhook event: {event_type}")
+        return {"status": "ignored", "reason": f"Event '{event_type}' is not an incoming message"}
+
+    # Extract message ID for deduplication
+    message_id = None
+    if "data" in raw_body and isinstance(raw_body["data"], dict):
+        message_id = raw_body["data"].get("message_id") or raw_body["data"].get("id")
+    if not message_id:
+        message_id = raw_body.get("id")
+
+    if message_id:
+        if message_id in processed_message_ids:
+            logger.info(f"Ignored duplicate webhook message: {message_id}")
+            return {"status": "ignored", "reason": "Duplicate message"}
+        processed_message_ids.add(message_id)
+        if len(processed_message_ids) > 2000:
+            # Prevent unbounded memory growth
+            processed_message_ids.pop()
 
     # Extract sender, message, and owner from CloudEvent format or flat payload
     sender = None
