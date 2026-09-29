@@ -24,6 +24,11 @@ class Settings(BaseSettings):
     # Google Gemini
     gemini_api_key: Optional[str] = Field(default=None)
     gemini_model: str = Field(default="gemini-3.1-flash-lite")
+    gemini_fallback_models: str = Field(
+        default="gemini-3.6-flash,gemini-3.8-flash,gemini-flash-latest,gemini-3.1-flash-lite-preview",
+        description="Comma-separated fallback Gemini models to use if primary is overloaded or errors"
+    )
+    gemini_timeout_seconds: float = Field(default=12.0, description="Per-model timeout in seconds before failing over")
 
     # Groq
     groq_api_key: Optional[str] = Field(default=None)
@@ -34,9 +39,23 @@ class Settings(BaseSettings):
     openai_model: str = Field(default="gpt-4o-mini")
 
     # SMS Character and Formatting Constraints
-    max_sms_characters: int = Field(default=280, description="Target character limit to stay within 2 GSM segments")
+    max_sms_characters: int = Field(default=280, description="Target character limit for overall answer")
+    sms_split_long_messages: bool = Field(
+        default=True,
+        description="Split messages >160 chars into standalone single segments to avoid carrier concatenation drops"
+    )
+    sms_segment_delay_seconds: float = Field(
+        default=1.5,
+        description="Delay in seconds between dispatching consecutive standalone SMS parts"
+    )
     conversation_ttl_minutes: int = Field(default=20, description="TTL in minutes for in-memory session context")
     conversation_history_turns: int = Field(default=3, description="Number of past turns to feed LLM for context")
+
+    @property
+    def fallback_model_list(self) -> list[str]:
+        if not self.gemini_fallback_models:
+            return []
+        return [m.strip() for m in self.gemini_fallback_models.split(",") if m.strip()]
 
     # Server configuration
     port: int = Field(default=8000)

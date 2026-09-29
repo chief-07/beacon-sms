@@ -10,6 +10,10 @@ services:
         value: gemini
       - key: GEMINI_MODEL
         value: gemini-3.1-flash-lite
+      - key: GEMINI_FALLBACK_MODELS
+        value: gemini-3.6-flash,gemini-3.8-flash,gemini-flash-latest,gemini-3.1-flash-lite-preview
+      - key: GEMINI_TIMEOUT_SECONDS
+        value: "12.0"
       - key: GEMINI_API_KEY
         sync: false
       - key: HTTPSMS_API_KEY
@@ -18,5 +22,11 @@ services:
         sync: false
       - key: SECONDARY_PHONE_NUMBER
         sync: false
+      - key: SECONDARY_HTTPSMS_API_KEY
+        sync: false
       - key: MAX_SMS_CHARACTERS
         value: "280"
+      - key: SMS_SPLIT_LONG_MESSAGES
+        value: "true"
+      - key: SMS_SEGMENT_DELAY_SECONDS
+        value: "1.5"

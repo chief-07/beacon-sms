@@ -121,11 +121,18 @@ class AIService:
 
     async def _generate_gemini_rest(self, system_prompt: str, history: List[Dict[str, str]], user_message: str) -> str:
         """
-        Calls Google Gemini directly via lightweight HTTP REST.
-        Ultra-fast, zero heavy SDK overhead, and 100% compatible with modern 'AQ.' auth keys.
+        Calls Google Gemini directly via lightweight HTTP REST with automatic model fallback.
+        Tries primary model, then falls back to secondary models if high usage (429/503), errors, or timeouts occur.
         """
-        model = settings.gemini_model or "gemini-1.5-flash"
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={settings.gemini_api_key}"
+        candidate_models = []
+        if settings.gemini_model:
+            candidate_models.append(settings.gemini_model)
+        for m in settings.fallback_model_list:
+            if m not in candidate_models:
+                candidate_models.append(m)
+
+        if not candidate_models:
+            candidate_models = ["gemini-3.1-flash-lite", "gemini-3.6-flash", "gemini-3.8-flash"]
 
         contents = []
         for msg in history:
@@ -144,21 +151,42 @@ class AIService:
             }
         }
 
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            resp = await client.post(url, json=payload)
-            if resp.status_code != 200:
-                logger.error(f"Gemini REST error {resp.status_code}: {resp.text}")
-                resp.raise_for_status()
+        timeout = settings.gemini_timeout_seconds or 12.0
+        last_error = None
 
-            data = resp.json()
-            candidates = data.get("candidates", [])
-            if candidates and "content" in candidates[0]:
-                parts = candidates[0]["content"].get("parts", [])
-                text_parts = [p.get("text", "") for p in parts if "text" in p]
-                if text_parts:
-                    return "".join(text_parts).strip()
+        for model in candidate_models:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={settings.gemini_api_key}"
+            try:
+                async with httpx.AsyncClient(timeout=timeout) as client:
+                    resp = await client.post(url, json=payload)
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        candidates = data.get("candidates", [])
+                        if candidates and "content" in candidates[0]:
+                            parts = candidates[0]["content"].get("parts", [])
+                            text_parts = [p.get("text", "") for p in parts if "text" in p]
+                            if text_parts:
+                                logger.info(f"Gemini response generated successfully using model: {model}")
+                                return "".join(text_parts).strip()
+                    else:
+                        logger.warning(
+                            f"Gemini model '{model}' failed with status {resp.status_code}: {resp.text[:150]}. "
+                            f"Attempting next model in fallback cascade..."
+                        )
+                        last_error = httpx.HTTPStatusError(
+                            f"Gemini HTTP {resp.status_code}", request=resp.request, response=resp
+                        )
+            except Exception as e:
+                logger.warning(
+                    f"Gemini model '{model}' encountered error ({type(e).__name__}): {e}. "
+                    f"Attempting next model in fallback cascade..."
+                )
+                last_error = e
 
-            return ""
+        if last_error:
+            raise last_error
+
+        return ""
 
     async def _generate_groq(self, system_prompt: str, history: List[Dict[str, str]], user_message: str) -> str:
         messages = [{"role": "system", "content": system_prompt}]

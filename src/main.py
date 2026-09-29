@@ -110,11 +110,23 @@ async def incoming_sms_webhook(
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid JSON payload")
 
-    # 0. STRICT EVENT FILTER: ONLY process incoming user SMS!
-    # Discards message.phone.sent, message.phone.delivered, message.send.failed, etc.
+    # 0. EVENT ROUTING: Process incoming SMS, and log delivery receipts & failures
     event_type = raw_body.get("type")
     if event_type and event_type != "message.phone.received":
-        logger.info(f"Ignored non-inbound webhook event: {event_type}")
+        event_data = raw_body.get("data", {}) if isinstance(raw_body.get("data"), dict) else {}
+        recipient = event_data.get("contact") or event_data.get("to")
+        msg_content = (event_data.get("content") or "")[:40]
+
+        if event_type == "message.phone.delivered":
+            logger.info(f"[CARRIER DLR: DELIVERED] Recipient {recipient} received SMS: '{msg_content}...'")
+        elif event_type == "message.phone.sent":
+            logger.info(f"[RADIO DLR: SENT] Android gateway radio transmitted SMS to {recipient}: '{msg_content}...'")
+        elif event_type == "message.send.failed":
+            reason = event_data.get("reason") or event_data.get("error") or "Unknown carrier/radio error"
+            logger.error(f"[SMS DISPATCH FAILED] Android gateway failed sending to {recipient}. Reason: {reason}")
+        else:
+            logger.info(f"Ignored non-inbound webhook event: {event_type}")
+
         return {"status": "ignored", "reason": f"Event '{event_type}' is not an incoming message"}
 
     # Extract message ID for deduplication
