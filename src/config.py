@@ -41,12 +41,16 @@ class Settings(BaseSettings):
     # SMS Character and Formatting Constraints
     max_sms_characters: int = Field(default=280, description="Target character limit for overall answer")
     sms_split_long_messages: bool = Field(
-        default=True,
-        description="Split messages >160 chars into standalone single segments to avoid carrier concatenation drops"
+        default=False,
+        description="Split messages >160 chars into standalone single segments (set to False to send single message)"
     )
     sms_segment_delay_seconds: float = Field(
         default=1.5,
         description="Delay in seconds between dispatching consecutive standalone SMS parts"
+    )
+    block_self_loop: bool = Field(
+        default=False,
+        description="Temporarily disabled: whether to block gateway numbers from texting themselves or each other"
     )
     conversation_ttl_minutes: int = Field(default=20, description="TTL in minutes for in-memory session context")
     conversation_history_turns: int = Field(default=3, description="Number of past turns to feed LLM for context")

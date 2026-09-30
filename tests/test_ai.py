@@ -82,7 +82,8 @@ async def test_sms_service_segment_dispatch(monkeypatch):
     from src.services.sms_service import sms_service
     from src.config import settings
 
-    # Reduce delay for fast test execution
+    # Enable splitting and reduce delay for test execution
+    monkeypatch.setattr(settings, "sms_split_long_messages", True)
     monkeypatch.setattr(settings, "sms_segment_delay_seconds", 0.01)
 
     long_text = (

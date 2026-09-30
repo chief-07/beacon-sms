@@ -21,10 +21,16 @@ def test_landing_page_served():
     assert "+234 814 688 2274" in response.text
 
 
-def test_sms_service_gateway_key_resolution():
+def test_sms_service_gateway_key_resolution(monkeypatch):
     from src.services.sms_service import sms_service
+    from src.config import settings
+
     key1 = sms_service._get_api_key_for_sender("+2349132628938")
     assert key1 == "uk_54q08c8whrt6id9QfbEh8G0t11I0LeCF__BTXYVozvQirAixmaVANNCEvvzqVSAa"
+
+    # Verify resolution when secondary gateway is configured
+    monkeypatch.setattr(settings, "secondary_phone_number", "+2348146882274")
+    monkeypatch.setattr(sms_service, "secondary_api_key", "uk_f6fS89DCOdiuDuttQoXlttOYc7mP3QLiToXjiPmwUR6jeN7jgtSk-yNCF18r7_sC")
     key2 = sms_service._get_api_key_for_sender("+2348146882274")
     assert key2 == "uk_f6fS89DCOdiuDuttQoXlttOYc7mP3QLiToXjiPmwUR6jeN7jgtSk-yNCF18r7_sC"
 

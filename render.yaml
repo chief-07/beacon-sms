@@ -27,6 +27,8 @@ services:
       - key: MAX_SMS_CHARACTERS
         value: "280"
       - key: SMS_SPLIT_LONG_MESSAGES
-        value: "true"
+        value: "false"
       - key: SMS_SEGMENT_DELAY_SECONDS
         value: "1.5"
+      - key: BLOCK_SELF_LOOP
+        value: "false"

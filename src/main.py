@@ -174,15 +174,16 @@ async def incoming_sms_webhook(
         logger.warning(f"BLOCKED carrier shortcode message from '{sender}'. No reply will be sent.")
         return {"status": "ignored", "reason": "Carrier shortcode blocked"}
 
-    # 3. Block self-loop (if any Android gateway phone texts itself)
-    known_gateways = {
-        re.sub(r'\D', '', str(num))
-        for num in [settings.gateway_phone_number, settings.secondary_phone_number, owner]
-        if num
-    }
-    if sender_digits in known_gateways:
-        logger.warning(f"BLOCKED self-loop message from gateway number '{sender}'.")
-        return {"status": "ignored", "reason": "Self-loop blocked"}
+    # 3. Block self-loop (conditionally, disabled by default for gateway-to-gateway testing)
+    if settings.block_self_loop:
+        known_gateways = {
+            re.sub(r'\D', '', str(num))
+            for num in [settings.gateway_phone_number, settings.secondary_phone_number, owner]
+            if num
+        }
+        if sender_digits in known_gateways:
+            logger.warning(f"BLOCKED self-loop message from gateway number '{sender}'.")
+            return {"status": "ignored", "reason": "Self-loop blocked"}
 
     # 4. Block echo of our own system replies
     if message.strip().startswith("Beacon:"):
