@@ -174,7 +174,7 @@ async def incoming_sms_webhook(
         logger.warning(f"BLOCKED carrier shortcode message from '{sender}'. No reply will be sent.")
         return {"status": "ignored", "reason": "Carrier shortcode blocked"}
 
-    # 3. Block self-loop (conditionally, disabled by default for gateway-to-gateway testing)
+    # 3. Block self-loop (blocks gateway numbers from texting themselves or each other)
     if settings.block_self_loop:
         known_gateways = {
             re.sub(r'\D', '', str(num))

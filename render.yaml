@@ -31,4 +31,4 @@ services:
       - key: SMS_SEGMENT_DELAY_SECONDS
         value: "1.5"
       - key: BLOCK_SELF_LOOP
-        value: "false"
+        value: "true"
